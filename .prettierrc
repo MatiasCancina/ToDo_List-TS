@@ -1,0 +1,13 @@
+{
+    
+    "useTabs": false,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "endOfLine": "auto",
+    "array-bracket-newline": "always-multiline", 
+    "object-curly-newline": "always"
+}
+  

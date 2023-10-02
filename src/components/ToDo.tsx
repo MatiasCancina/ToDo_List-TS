@@ -1,8 +1,14 @@
 import { type Todo as TodoType } from '../types'
 
-type Props = TodoType
-
-export const Todo: React.FC<Props> = ({ id, title, completed }) => {
+interface Props extends TodoType {
+  onRemoveToDo: (id: string) => void
+}
+export const Todo: React.FC<Props> = ({
+  id,
+  title,
+  completed,
+  onRemoveToDo
+}) => {
   return (
     <div className="view">
       <input
@@ -13,8 +19,11 @@ export const Todo: React.FC<Props> = ({ id, title, completed }) => {
       />
       <label>{title}</label>
       <button
-      className="destroy"
-      onClick={() => {}} />
+        className="destroy"
+        onClick={() => {
+          onRemoveToDo(id) // como puedo simplificar para pasar solamente la action desde ToDos?
+        }}
+      />
     </div>
   )
 }

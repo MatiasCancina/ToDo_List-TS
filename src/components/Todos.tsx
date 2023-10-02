@@ -1,4 +1,5 @@
 import { type ListOfTodos } from '../types'
+import { Todo } from './ToDo'
 
 interface Props {
   todos: ListOfTodos

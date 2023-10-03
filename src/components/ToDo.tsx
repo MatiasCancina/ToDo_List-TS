@@ -1,7 +1,7 @@
-import { type Todo as TodoType } from '../types'
+import { ToDoId, type ToDo as TodoType } from '../types'
 
 interface Props extends TodoType {
-  onRemoveToDo: (id: string) => void
+  onRemoveToDo: ({ id }: ToDoId) => void
 }
 export const Todo: React.FC<Props> = ({
   id,
@@ -21,7 +21,7 @@ export const Todo: React.FC<Props> = ({
       <button
         className="destroy"
         onClick={() => {
-          onRemoveToDo(id) // como puedo simplificar para pasar solamente la action desde ToDos?
+          onRemoveToDo({ id }) // como puedo simplificar para pasar solamente la action desde ToDos?
         }}
       />
     </div>

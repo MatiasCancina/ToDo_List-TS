@@ -3,7 +3,7 @@ import { TODO_FILTERS } from '../consts'
 import { type ListOfToDos, type FilterValue } from '../types'
 import { mockToDos } from '../mocks/toDos'
 
-export const useTodos = (): {
+export const useToDos = (): {
   activeCount: number
   completedCount: number
   toDos: ListOfToDos

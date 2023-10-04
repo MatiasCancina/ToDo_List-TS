@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { ToDos } from './components/ToDos'
 import '../index.css'
+import { TODO_FILTERS } from './consts'
+import { type FilterValue } from './types'
+import { Footer } from './components/Footer'
 
 const mockToDos = [
   {
@@ -22,17 +25,21 @@ const mockToDos = [
 
 const App = (): JSX.Element => {
   const [toDos, setToDos] = useState(mockToDos)
+  const [filterSelected, setFilterSelected] = useState(TODO_FILTERS.ALL)
 
   const handleRemove = (id: string): void => {
     const newToDos = toDos.filter(toDo => toDo.id !== id)
     setToDos(newToDos)
   }
 
+  const handleFilterChange = (filter: FilterValue): void => {
+    setFilterSelected(filter)
+  }
+
   return (
     <div className="todoapp">
-      <ToDos
-      onRemoveToDo={handleRemove}
-      toDos={toDos} />
+      <ToDos onRemoveToDo={handleRemove} toDos={toDos} />
+      <Footer filterSelected={filterSelected} handleFilterChange={handleFilterChange}/>
     </div>
   )
 }

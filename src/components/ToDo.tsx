@@ -1,9 +1,9 @@
-import { type Todo as TodoType } from '../types'
+import { type ToDo as ToDoType } from '../types'
 
-interface Props extends TodoType {
+interface Props extends ToDoType {
   onRemoveToDo: (id: string) => void
 }
-export const Todo: React.FC<Props> = ({
+export const ToDo: React.FC<Props> = ({
   id,
   title,
   completed,

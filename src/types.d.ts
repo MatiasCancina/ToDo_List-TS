@@ -1,7 +1,7 @@
-export interface Todo {
+export interface ToDo {
   id: string
   title: string
   completed: boolean
 }
 
-export type ListOfTodos = Todo[]
+export type ListOfToDos = ToDo[]

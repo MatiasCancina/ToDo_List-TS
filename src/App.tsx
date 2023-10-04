@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { ToDos } from './components/ToDos'
 import '../index.css'
 import { TODO_FILTERS } from './consts'
-import { type FilterValue } from './types'
 import { Footer } from './components/Footer'
+import { type ToDoId, type ToDo as ToDoType, type FilterValue } from './types'
 
 const mockToDos = [
   {
@@ -25,10 +25,29 @@ const mockToDos = [
 
 const App = (): JSX.Element => {
   const [toDos, setToDos] = useState(mockToDos)
-  const [filterSelected, setFilterSelected] = useState(TODO_FILTERS.ALL)
+  const [filterSelected, setFilterSelected] = useState<FilterValue>(
+    TODO_FILTERS.ALL
+  )
 
-  const handleRemove = (id: string): void => {
+  const handleRemove = ({ id }: ToDoId): void => {
     const newToDos = toDos.filter(toDo => toDo.id !== id)
+    setToDos(newToDos)
+  }
+
+  const handleCompleted = ({
+    id,
+    completed
+  }: Pick<ToDoType, 'id' | 'completed'>): void => {
+    const newToDos = toDos.map(toDo => {
+      if (toDo.id === id) {
+        return {
+          ...toDo,
+          completed
+        }
+      }
+      return toDo
+    })
+
     setToDos(newToDos)
   }
 
@@ -36,10 +55,29 @@ const App = (): JSX.Element => {
     setFilterSelected(filter)
   }
 
+  const activeCount = toDos.filter(toDo => !toDo.completed).length
+  const completedCount = toDos.length - activeCount
+
+  const filteredToDos = toDos.filter(toDo => {
+    if (filterSelected === TODO_FILTERS.ACTIVE) return !toDo.completed
+    if (filterSelected === TODO_FILTERS.COMPLETED) return toDo.completed
+    return toDo
+  })
+
   return (
     <div className="todoapp">
-      <ToDos onRemoveToDo={handleRemove} toDos={toDos} />
-      <Footer filterSelected={filterSelected} handleFilterChange={handleFilterChange}/>
+      <ToDos
+        onToggleCompleted={handleCompleted}
+        onRemoveToDo={handleRemove}
+        toDos={filteredToDos}
+      />
+      <Footer
+        activeCount={activeCount}
+        completedCount={completedCount}
+        filterSelected={filterSelected}
+        onClearCompleted={() => {}}
+        handleFilterChange={handleFilterChange}
+      />
     </div>
   )
 }

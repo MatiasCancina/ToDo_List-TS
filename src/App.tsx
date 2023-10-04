@@ -3,7 +3,13 @@ import { ToDos } from './components/ToDos'
 import '../index.css'
 import { TODO_FILTERS } from './consts'
 import { Footer } from './components/Footer'
-import { type ToDoId, type ToDo as ToDoType, type FilterValue } from './types'
+import {
+  type ToDoId,
+  type ToDoTitle,
+  type ToDo as ToDoType,
+  type FilterValue
+} from './types'
+import { Header } from './components/Header'
 
 const mockToDos = [
   {
@@ -69,8 +75,19 @@ const App = (): JSX.Element => {
     return toDo
   })
 
+  const handleAddToDo = ({ title }: ToDoTitle): void => {
+    const newToDo = {
+      title,
+      id: crypto.randomUUID(),
+      completed: false
+    }
+    const newToDos = [...toDos, newToDo]
+    setToDos(newToDos)
+  }
+
   return (
     <div className="todoapp">
+      <Header onAddToDo={handleAddToDo} />
       <ToDos
         onToggleCompleted={handleCompleted}
         onRemoveToDo={handleRemove}

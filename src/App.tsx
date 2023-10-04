@@ -1,6 +1,6 @@
 import { Footer } from './components/Footer.tsx'
 import { Header } from './components/Header.tsx'
-import { ToDos } from './components/ToDos.tsx'
+import { ToDos } from './components/Todos.tsx'
 import { useToDos } from './hooks/useToDos.ts'
 
 const App: React.FC = () => {

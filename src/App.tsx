@@ -1,7 +1,7 @@
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
-import { ToDos } from './components/ToDos'
-import { useToDos } from './hooks/useToDos'
+import { Footer } from './components/Footer.tsx'
+import { Header } from './components/Header.tsx'
+import { ToDos } from './components/ToDos.tsx'
+import { useToDos } from './hooks/useToDos.ts'
 
 const App: React.FC = () => {
   const {

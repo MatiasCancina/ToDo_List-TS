@@ -1,40 +1,84 @@
-import { type ToDoId, type ToDo as ToDoType } from '../types'
+import { useEffect, useRef, useState } from 'react'
 
-interface Props extends ToDoType {
-  onRemoveToDo: ({ id }: ToDoId) => void
-  onToggleCompleted: ({
-    id,
-    completed
-  }: Pick<ToDoType, 'id' | 'completed'>) => void
+interface Props {
+  id: string
+  title: string
+  completed: boolean
+  setCompleted: (id: string, completed: boolean) => void
+  setTitle: (params: { id: string, title: string }) => void
+  isEditing: string
+  setIsEditing: (completed: string) => void
+  removeToDo: (id: string) => void
 }
+
 export const ToDo: React.FC<Props> = ({
   id,
   title,
   completed,
-  onRemoveToDo,
-  onToggleCompleted
+  setCompleted,
+  setTitle,
+  removeToDo,
+  isEditing,
+  setIsEditing
 }) => {
-  const handleChangeCheckbox = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    onToggleCompleted({ id, completed: event.target.checked })
+  const [editedTitle, setEditedTitle] = useState(title)
+  const inputEditTitle = useRef<HTMLInputElement>(null)
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = e => {
+    if (e.key === 'Enter') {
+      setEditedTitle(editedTitle.trim())
+
+      if (editedTitle !== title) {
+        setTitle({ id, title: editedTitle })
+      }
+
+      if (editedTitle === '') removeToDo(id)
+
+      setIsEditing('')
+    }
+
+    if (e.key === 'Escape') {
+      setEditedTitle(title)
+      setIsEditing('')
+    }
   }
 
+  useEffect(() => {
+    inputEditTitle.current?.focus()
+  }, [isEditing])
+
   return (
-    <div className="view">
+    <>
+      <div className="view">
+        <input
+          className="toggle"
+          checked={completed}
+          type="checkbox"
+          onChange={e => {
+            setCompleted(id, e.target.checked)
+          }}
+        />
+        <label>{title}</label>
+        <button
+          className="destroy"
+          onClick={() => {
+            removeToDo(id)
+          }}
+        ></button>
+      </div>
+
       <input
-        className="toggle"
-        checked={completed}
-        type="checkbox"
-        onChange={handleChangeCheckbox}
-      />
-      <label>{title}</label>
-      <button
-        className="destroy"
-        onClick={() => {
-          onRemoveToDo({ id }) // como puedo simplificar para pasar solamente la action desde ToDos?
+        className="edit"
+        value={editedTitle}
+        onChange={e => {
+          setEditedTitle(e.target.value)
         }}
+        onKeyDown={handleKeyDown}
+        onBlur={() => {
+          setIsEditing('')
+        }}
+        ref={inputEditTitle}
       />
-    </div>
+    </>
   )
 }

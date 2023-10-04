@@ -30,6 +30,7 @@ module.exports = {
     semi: ['error', 'never'],
     'react/react-in-jsx-scope': 'off',
     'no-trailing-spaces': ['error', { skipBlankLines: true }],
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
+    'multiline-ternary': 'off'
   }
 }

@@ -16,10 +16,13 @@ export const Footer: React.FC<Props> = ({
   filterSelected,
   handleFilterChange
 }) => {
+  const singleActiveTask = activeCount === 1
+  const activeToDoWord = singleActiveTask ? 'task' : 'tasks'
+
   return (
     <footer className="footer">
       <span className="todo-count">
-        <strong>{activeCount} </strong> pending tasks
+        <strong>{activeCount} </strong> pending {activeToDoWord}
       </span>
 
       <Filters

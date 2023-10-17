@@ -16,7 +16,8 @@ export const AdviceModal: React.FC = () => {
         style={{
           cursor: 'pointer',
           fontSize: 16,
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          marginBottom: 16
         }}
       >
         Instructions

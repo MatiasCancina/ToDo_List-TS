@@ -17,7 +17,9 @@ export const AdviceModal: React.FC = () => {
           cursor: 'pointer',
           fontSize: 16,
           fontWeight: 'bold',
-          marginBottom: 16
+          marginBottom: 16,
+          padding: 6,
+          borderRadius: 5
         }}
       >
         Instructions
@@ -25,7 +27,7 @@ export const AdviceModal: React.FC = () => {
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        style={{ padding: 16 }}
+        style={{ padding: 16, borderRadius: 5 }}
       >
         <ModalContent>
           <>

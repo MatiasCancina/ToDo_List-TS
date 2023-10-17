@@ -1,3 +1,4 @@
+import { AdviceModal } from './components/AdviceModal.tsx'
 import { Footer } from './components/Footer.tsx'
 import { Header } from './components/Header.tsx'
 import { ToDos } from './components/ToDos.tsx'
@@ -34,6 +35,15 @@ const App: React.FC = () => {
           filterSelected={filterSelected}
           onClearCompleted={handleClearCompleted}
         />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <AdviceModal />
       </div>
     </>
   )
